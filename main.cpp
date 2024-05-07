@@ -1,8 +1,5 @@
 #include <iostream>
-
-extern int menu();
-extern int menu_ch;
-
+#include "headders_src/extern.h"
 
 int main()
 {
