@@ -2,7 +2,7 @@
 #include "headders_src/global_var.h"
 
 /* функция меню стартовая, будет принимать аргумент выбора пользователя */
-int menu(int arg)
+int menu()
 {
     int choice;
     std::cout << "1. Add book" << std::endl;    // добавление книги
@@ -12,6 +12,5 @@ int menu(int arg)
     std::cout << "5. Quit" << std::endl;        // выход из программы
     std::cout << "Enter your choice: ";         // выбор пункта меню
     std::cin >> choice;
-    arg = choice;   //записываем выбор в глобальную переменную
     return choice;
 }
