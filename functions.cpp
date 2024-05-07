@@ -1,7 +1,7 @@
 #include <iostream>
 #include "headders_src/global_var.h"
 
-/* функция меню стартовая, будет крутиться в бесконечном цикле */
+/* функция меню стартовая, будет принимать аргумент выбора пользователя */
 int menu(int arg)
 {
     int choice;
