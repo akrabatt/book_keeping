@@ -2,7 +2,7 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include "sql_src/sqlite3.h"
+#include <sqlite3.h>
 
 sqlite3 *open_or_create_db();
 
