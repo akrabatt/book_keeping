@@ -1,3 +1,5 @@
+/* в этом файле мы создаем структуру книги */
+
 #include <string>
 
 typedef struct BOOK
