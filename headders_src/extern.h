@@ -5,4 +5,4 @@ extern int menu_ch; // переменная для хранения выбран
 
 /* функции */
 extern int menu();               // функция меню
-extern void open_or_create_db(); // функция открытия или создания базы данных
+sqlite3* open_or_create_db(); // функция открытия или создания базы данных
