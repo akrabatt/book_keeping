@@ -42,7 +42,7 @@ void create_table(sqlite3 *db)  //функция автоматического 
     /* создаем переменную для сообщения об ошибках */
     char *errMsg = 0; // указатель для сообщения об ошибках
     /* ниже подготавливаем текси запроса */
-    const char *sql = "CREATE TABLE IF NOT EXISTS BOOKS (id INT PRIMARY KEY NOT NULL,"
+    const char *sql = "CREATE TABLE IF NOT EXISTS BOOKS_2 (id INT PRIMARY KEY NOT NULL,"
                       "title TEXT NOT NULL,"
                       "author TEXT NOT NULL,"
                       "year INT NOT NULL,"
