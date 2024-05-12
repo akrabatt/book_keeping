@@ -35,15 +35,17 @@ sqlite3 *open_or_create_db()
 void create_table(sqlite3 *db) // функция автоматического создания таблицы в базе данных если ее не существует
 {
     /* выведим список доступных таблиц */
-    std::cout << "Tables in the database:" << std::endl; // Вывод заголовка
-    std::string query = "SELECT name FROM sqlite_master WHERE type='table';";
+    std::cout << "Tables in the database:" << std::endl;                                                    // Вывод заголовка
+    std::string query = "SELECT name FROM sqlite_master WHERE type='table';";                               // текст самого запроса
+    std::cout << "Avaliable tables in the database:" << std::endl;                                          // выводим заголовок
     char *errorMessage = nullptr;                                                                           // Объявление указателя на строку ошибки                       // SQL-запрос для получения списка таблиц
-    int rc = sqlite3_exec(db, query.c_str(), [](void *data, int argc, char **argv, char **colName) -> int { // Выполнение SQL-запроса
+    static int tableCount = 1;                                                                              // переменная для нумерации таблиц
+    int rc = sqlite3_exec(db, query.c_str(), [](void *data, int argc, char **argv, char **colName) -> int { // Выполнение SQL-запроса, это лямбда функция
         if (argc > 0)                                                                                       // Проверка наличия таблиц в базе данных
         {
             for (int i = 0; i < argc; i++)
-            {                                      // Цикл для вывода списка таблиц
-                std::cout << argv[i] << std::endl; // Вывод названия таблицы
+            {                                                   // Цикл для вывода списка таблиц
+                std::cout << i << ": " << argv[i] << std::endl; // Вывод названия таблицы
             }
         }
         else
