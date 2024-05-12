@@ -34,7 +34,32 @@ sqlite3 *open_or_create_db()
 /* данная функция служит для создания таблицы */
 void create_table(sqlite3 *db) // функция автоматического создания таблицы в базе данных если ее не существует
 {
-    /* тестовый блок, дадим пользователю ввести название таблицы вручную */
+    /* выведим список доступных таблиц */
+    std::cout << "Tables in the database:" << std::endl; // Вывод заголовка
+    std::string query = "SELECT name FROM sqlite_master WHERE type='table';";
+    char *errorMessage = nullptr;                                                                           // Объявление указателя на строку ошибки                       // SQL-запрос для получения списка таблиц
+    int rc = sqlite3_exec(db, query.c_str(), [](void *data, int argc, char **argv, char **colName) -> int { // Выполнение SQL-запроса
+        if (argc > 0)                                                                                       // Проверка наличия таблиц в базе данных
+        {
+            for (int i = 0; i < argc; i++)
+            {                                      // Цикл для вывода списка таблиц
+                std::cout << argv[i] << std::endl; // Вывод названия таблицы
+            }
+        }
+        else
+        {
+            std::cout << "No tables found in the database." << std::endl; // Сообщение о отсутствии таблиц
+        }
+        return 0; // Возврат успешного завершения
+    },
+                          nullptr, &errorMessage); // Передача параметров для обработки результатов
+    if (rc != SQLITE_OK)
+    {                                                            // Проверка на успешное выполнение запроса
+        std::cerr << "SQL error: " << errorMessage << std::endl; // Вывод сообщения об ошибке
+        sqlite3_free(errorMessage);                              // Освобождение памяти, занятой ошибкой
+    }
+
+    /* дадим пользователю ввести название таблицы вручную */
     //
     std::cout << std::endl;
     std::cout << "input table name: ";  // выводим сообщение
@@ -51,11 +76,11 @@ void create_table(sqlite3 *db) // функция автоматического 
     /* создаем переменную для сообщения об ошибках */
     char *errMsg = 0; // указатель для сообщения об ошибках
     /* ниже подготавливаем текст для запроса, в него вставляем нашу переменную с названием таблицы */
-    std::string cr_tb = "CREATE TABLE IF NOT EXISTS "+ table_name +"(id INT PRIMARY KEY NOT NULL,"
-                      "title TEXT NOT NULL,"
-                      "author TEXT NOT NULL,"
-                      "year INT NOT NULL,"
-                      "genre TEXT NOT NULL);";
+    std::string cr_tb = "CREATE TABLE IF NOT EXISTS " + table_name + "(id INT PRIMARY KEY NOT NULL,"
+                                                                     "title TEXT NOT NULL,"
+                                                                     "author TEXT NOT NULL,"
+                                                                     "year INT NOT NULL,"
+                                                                     "genre TEXT NOT NULL);";
 
     int exitCode = sqlite3_exec(db, cr_tb.c_str(), 0, 0, &errMsg); // выполняем сам запрос и сохраняем результат его выполнения в переменную
 
