@@ -1,0 +1,94 @@
+<mxfile host="Electron" modified="2024-05-13T08:38:07.138Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.2.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="1tCB82t6RrpZYe1OqMpX" version="24.2.5" type="device">
+  <diagram name="Page-1" id="5d7acffa-a066-3a61-03fe-96351882024d">
+    <mxGraphModel dx="1120" dy="1176" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#B3B3B3" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="KhB3Vlkd83CNaLOpbNGe-1" value="create_table(sqlite3 *db)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;fontColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="156.5" y="2" width="170" height="71" as="geometry" />
+        </mxCell>
+        <mxCell id="KhB3Vlkd83CNaLOpbNGe-2" value="принимает значение в виде указателя на&amp;nbsp; базу данных&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;shadow=0;fontColor=#000000;" parent="KhB3Vlkd83CNaLOpbNGe-1" vertex="1">
+          <mxGeometry y="30" width="170" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="L60N4qDu5yBO_N0uDxby-3" value="функция по созданию таблицы" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="147" y="-31" width="189" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-1" value="выход" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="414" y="614" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-2" value="возвращаемое значение имя таблицы" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-1">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-6" value="проверка наличия таблиц" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="169" y="116" width="140" height="89" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-7" value="в данном блоке выполняем проверку на наличие таблиц в БД&lt;div&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-6">
+          <mxGeometry y="30" width="140" height="59" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="r_YqrAHaJlJIWSJqDCds-6" source="r_YqrAHaJlJIWSJqDCds-7" target="r_YqrAHaJlJIWSJqDCds-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.481;exitY=1.041;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#000000;" edge="1" parent="1" source="KhB3Vlkd83CNaLOpbNGe-2" target="r_YqrAHaJlJIWSJqDCds-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="322" y="274" as="sourcePoint" />
+            <mxPoint x="372" y="224" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#000000;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-10" target="r_YqrAHaJlJIWSJqDCds-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;verticalAlign=middle;endArrow=none;endFill=0;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-10" target="r_YqrAHaJlJIWSJqDCds-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#000000;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-10" target="r_YqrAHaJlJIWSJqDCds-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-10" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;rotation=90;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="433" y="192" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-12" value="таблицы не найдены" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="262" y="324" width="140" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-13" value="1. вывести процедуру создания таблицы" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-12">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-17" value="2. занести имя созданной таблицы в переменную для дальнейшей работы с ней&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-12">
+          <mxGeometry y="60" width="140" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-18" value="else" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="326.5" y="266" width="40" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-19" value="таблицы найдены" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="558" y="330" width="140" height="166" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-20" value="1. выводим список таблиц" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-19">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-23" value="2. даем пользователю выбрать таблицу" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-19">
+          <mxGeometry y="60" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-24" value="3. занести имя таблицы в переменную для дальнейшей работы с ней" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-19">
+          <mxGeometry y="90" width="140" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-22" value="if true" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="506" y="266" width="48" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;strokeColor=#000000;endArrow=none;endFill=0;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-25" target="r_YqrAHaJlJIWSJqDCds-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#000000;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-25" target="r_YqrAHaJlJIWSJqDCds-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-25" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;direction=north;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="434" y="526" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.465;entryY=0.991;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#000000;endArrow=none;endFill=0;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-25" target="r_YqrAHaJlJIWSJqDCds-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-29" value="возвращаем" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="439" y="518" width="87" height="26" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
