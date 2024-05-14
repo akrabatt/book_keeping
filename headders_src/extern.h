@@ -7,5 +7,6 @@
 extern int menu_ch; // переменная для хранения выбранного пункта меню
 
 /* функции */
-extern int menu(); // функция меню
-extern void list_table(sqlite3 *db);	//функция по выводу списка таблиц
+extern int menu();                     // функция меню
+extern void list_table(sqlite3 *db);   // функция по выводу списка таблиц
+extern void create_table(sqlite3 *db); // функция по созданию таблицы
