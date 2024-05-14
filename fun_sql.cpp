@@ -1,6 +1,7 @@
 /* этот файл для написания функций на sqlite3 */
 
 #include <iostream>
+//#include <string>
 #include "sql_src/sqlite3.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,9 +43,9 @@ void create_table(sqlite3 *db)
     std::cout << std::endl;
     std::cout << "input table name: ";  // выводим сообщение
     std::string table_name;             // переменная для имени создаваемой таблицы
+    /* V!!! ОБЯЗАТЕЛЬНО использовать ignore !!!V */
+    std::cin.ignore();         // Очищаем символ новой строки из буфера
     std::getline(std::cin, table_name); // Считываем введенное пользователем имя таблицы
-    // тут возможно надо раскоментить строку ниже
-    // std::cin.ignore();         // Очищаем символ новой строки из буфера
 
     /* для начала выведим текс что открываем таблицу */
     std::cout << std::endl;
@@ -54,7 +55,7 @@ void create_table(sqlite3 *db)
     /* создаем переменную для сообщения об ошибках */
     char *errMsg = 0; // указатель для сообщения об ошибках
     /* ниже подготавливаем текст для запроса, в него вставляем нашу переменную с названием таблицы */
-    std::string cr_tb = "CREATE TABLE IF NOT EXISTS " + table_name + "(id INT PRIMARY KEY NOT NULL,"
+    std::string cr_tb = "CREATE TABLE IF NOT EXISTS " + table_name + " (id INT PRIMARY KEY NOT NULL,"
                                                                      "title TEXT NOT NULL,"
                                                                      "author TEXT NOT NULL,"
                                                                      "year INT NOT NULL,"
@@ -85,16 +86,24 @@ void list_table(sqlite3 *db) // функция автоматического с
     std::cout << "Tables in the database:" << std::endl;                      // Вывод заголовка
     std::string query = "SELECT name FROM sqlite_master WHERE type='table';"; // текст самого запроса
     std::cout << "Avaliable tables in the database:" << std::endl;            // выводим заголовок
-    char *errorMessage = nullptr;                                             // Объявление указателя на строку ошибки                       // SQL-запрос для получения списка таблиц
-    static int tableCount = 1;                                                // переменная для нумерации таблиц
+
+    char *errorMessage = nullptr; // Объявление указателя на строку ошибки
+    static int tableCount = 1;    // переменная для нумерации таблиц
+
     /* флаг сработает тогда если запрос ниже даст результат */
     static bool tableFound = false; // флаг для находа книг
-    /* переменная для выбора таблицы */
-    int chosenTable;
+
+    /* переменная для выбора номера таблицы */
+    int numTable;
+
     /* переменная для хранения наименования выбранной таблицы */
-    std::string chosenTable;                                                                                // будет храниться выбранная таблицы
-    std::cout << std::endl;                                                                                 //
-    std::cout << "none_ 0: create table" << std::endl;                                                      // выведем сообщение о том что набрав ноль пользователь сможет создать новую таблицу
+    std::string chosenTable; // будет храниться имя выбранной таблицы
+
+    /* выводим предложение о создании новой таблицы для начала */
+    std::cout << std::endl;                            //
+    std::cout << "none_ 0: create table" << std::endl; // выведем сообщение о том что набрав ноль пользователь сможет создать новую таблицу
+
+    /* выводим список таблиц */
     int rc = sqlite3_exec(db, query.c_str(), [](void *data, int argc, char **argv, char **colName) -> int { // Выполнение SQL-запроса, это лямбда функция
         if (argc > 0)                                                                                       // Проверка наличия таблиц в базе данных
         {
@@ -111,6 +120,7 @@ void list_table(sqlite3 *db) // функция автоматического с
         std::cerr << "SQL error: " << errorMessage << std::endl; // Вывод сообщения об ошибке
         sqlite3_free(errorMessage);                              // Освобождение памяти, занятой ошибкой
     }
+
     /* проверка если не найдены таблицы и флаг поднят */
     if (tableFound == false) // Проверка на нахождение таблицы
     {
@@ -119,13 +129,24 @@ void list_table(sqlite3 *db) // функция автоматического с
         std::cout << "No tables found in the database." << std::endl; // Сообщение о отсутствии таблиц
         create_table(db);                                             // создаем таблицу
     }
+    /* выводим сообщение о предолжении ввести номер таблицы или создать новую */
     else
     {
         std::cout << std::endl;
-        std::cout << "Choose your table(input num): "; // Сообщение о нахождении таблиц
-        std::cin >> chosenTable;                       // воодим значение таблицы
+        std::cout << "Choose your table(input num): "; // Сообщение о предложении выбора таблицы
+        std::cin >> numTable;                       // воодим значение таблицы
         std::cout << std::endl
                   << std::endl;
+
+        /* создаем условие если выбран 0 то создаем таблицу, если > 0 то заносим имя таблицы в переменную */
+        if (numTable == 0) // если 0, то создам таблицу
+        {
+            create_table(db); // создаем таблицу
+        }
+        else // запускаем выборку таблиц
+        {
+            /* вставляем еще раз лямбда функцию */
+        }
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
