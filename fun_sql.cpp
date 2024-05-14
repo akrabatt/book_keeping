@@ -98,19 +98,21 @@ void list_table(sqlite3 *db) // функция автоматического с
 
     /* переменная для хранения наименования выбранной таблицы */
     std::string chosenTable; // будет храниться имя выбранной таблицы
-
+    
     /* вектор для хранения названий таблиц */
-    std::vector<std::string> tables; // данных вектор будет хранить таблицы
+    static std::vector<std::string> tables; // данных вектор будет хранить список таблицы
 
     /* выводим предложение о создании новой таблицы для начала */
     std::cout << std::endl;                            //
     std::cout << "none_ 0: create table" << std::endl; // выведем сообщение о том что набрав ноль пользователь сможет создать новую таблицу
+
 
     /* выводим список таблиц */
     int rc = sqlite3_exec(db, query.c_str(), [](void *data, int argc, char **argv, char **colName) -> int { // Выполнение SQL-запроса, это лямбда функция
         if (argc > 0)                                                                                       // Проверка наличия таблиц в базе данных
         {
             std::cout << "Table " << tableCount << ": " << argv[0] << std::endl; // Вывод названия таблицы с номером
+            tables.push_back(std::string(argv[0]));                              // Добавление названия таблицы в векторs.push_back(std::string(argv[0])); // Добавление названия таблицы в вектор
             tableCount++;
             tableFound = true; // Установка флага на нахождение таблицы
         }
@@ -123,6 +125,12 @@ void list_table(sqlite3 *db) // функция автоматического с
         std::cerr << "SQL error: " << errorMessage << std::endl; // Вывод сообщения об ошибке
         sqlite3_free(errorMessage);                              // Освобождение памяти, занятой ошибкой
     }
+
+    /* тестовый блок вывести содержимое вектора */
+    // for (const auto &i : tables)
+    // {
+    //     std::cout << i << std::endl; // выведем вектор
+    // }
 
     /* проверка если не найдены таблицы и флаг поднят */
     if (tableFound == false) // Проверка на нахождение таблицы
