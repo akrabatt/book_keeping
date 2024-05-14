@@ -77,31 +77,35 @@ void create_table(sqlite3 *db)
 void list_table(sqlite3 *db) // функция автоматического создания таблицы в базе данных если ее не существует
 {
     /* выведим список доступных таблиц */
-    std::cout << "Tables in the database:" << std::endl;                                                    // Вывод заголовка
-    std::string query = "SELECT name FROM sqlite_master WHERE type='table';";                               // текст самого запроса
-    std::cout << "Avaliable tables in the database:" << std::endl;                                          // выводим заголовок
-    char *errorMessage = nullptr;                                                                           // Объявление указателя на строку ошибки                       // SQL-запрос для получения списка таблиц
-    static int tableCount = 1;                                                                              // переменная для нумерации таблиц
+    std::cout << "Tables in the database:" << std::endl;                      // Вывод заголовка
+    std::string query = "SELECT name FROM sqlite_master WHERE type='table';"; // текст самого запроса
+    std::cout << "Avaliable tables in the database:" << std::endl;            // выводим заголовок
+    char *errorMessage = nullptr;                                             // Объявление указателя на строку ошибки                       // SQL-запрос для получения списка таблиц
+    static int tableCount = 1;                                                // переменная для нумерации таблиц
+    /* флаг сработает тогда если запрос ниже даст результат */
+    static bool tableFound = false;                                                                         // флаг для находа книг
     int rc = sqlite3_exec(db, query.c_str(), [](void *data, int argc, char **argv, char **colName) -> int { // Выполнение SQL-запроса, это лямбда функция
         if (argc > 0)                                                                                       // Проверка наличия таблиц в базе данных
         {
-            for (int i = 0; i < argc; i++)
-            {                                                   // Цикл для вывода списка таблиц
-                std::cout << i << ": " << argv[i] << std::endl; // Вывод названия таблицы
-            }
-        }
-        else
-        {
-            std::cout << "No tables found in the database." << std::endl; // Сообщение о отсутствии таблиц
+            std::cout << "Table " << tableCount << ": " << argv[0] << std::endl; // Вывод названия таблицы с номером
+            tableCount++;
+            tableFound = true; // Установка флага на нахождение таблицы
         }
         return 0; // Возврат успешного завершения
     },
                           nullptr, &errorMessage); // Передача параметров для обработки результатов
-    if (rc != SQLITE_OK)
+
+    if (rc != SQLITE_OK)                                         // проверка запроса
     {                                                            // Проверка на успешное выполнение запроса
         std::cerr << "SQL error: " << errorMessage << std::endl; // Вывод сообщения об ошибке
         sqlite3_free(errorMessage);                              // Освобождение памяти, занятой ошибкой
     }
-    // create_table(db);    //функция создания таблицы
+    /* проверка если не найдены таблицы и флаг поднят */
+    if (tableFound == false) // Проверка на нахождение таблицы
+    {
+        tableFound = false;                                           // обнуляем
+        std::cout << "No tables found in the database." << std::endl; // Сообщение о отсутствии таблиц
+        create_table(db);                                             // создаем таблицу
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
