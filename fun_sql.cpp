@@ -91,6 +91,8 @@ void list_table(sqlite3 *db) // функция автоматического с
     static bool tableFound = false; // флаг для находа книг
     /* переменная для выбора таблицы */
     int chosenTable;
+    /* переменная для хранения наименования выбранной таблицы */
+    std::string chosenTable;                                                                                // будет храниться выбранная таблицы
     std::cout << std::endl;                                                                                 //
     std::cout << "none_ 0: create table" << std::endl;                                                      // выведем сообщение о том что набрав ноль пользователь сможет создать новую таблицу
     int rc = sqlite3_exec(db, query.c_str(), [](void *data, int argc, char **argv, char **colName) -> int { // Выполнение SQL-запроса, это лямбда функция
@@ -122,7 +124,8 @@ void list_table(sqlite3 *db) // функция автоматического с
         std::cout << std::endl;
         std::cout << "Choose your table(input num): "; // Сообщение о нахождении таблиц
         std::cin >> chosenTable;                       // воодим значение таблицы
-        std::cout << std::endl << std::endl;
+        std::cout << std::endl
+                  << std::endl;
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
