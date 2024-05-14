@@ -1,7 +1,8 @@
 /* этот файл для написания функций на sqlite3 */
 
 #include <iostream>
-#include <vector>
+// #include <vector>
+#include <map>
 #include "sql_src/sqlite3.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -98,21 +99,24 @@ void list_table(sqlite3 *db) // функция автоматического с
 
     /* переменная для хранения наименования выбранной таблицы */
     std::string chosenTable; // будет храниться имя выбранной таблицы
-    
-    /* вектор для хранения названий таблиц */
-    static std::vector<std::string> tables; // данных вектор будет хранить список таблицы
+
+    // /* вектор для хранения названий таблиц */
+    // static std::vector<std::string> tables; // данных вектор будет хранить список таблицы
+
+    /* попробуем решить с помощью списка */
+    static std::map<int, std::string> tables; // список
 
     /* выводим предложение о создании новой таблицы для начала */
     std::cout << std::endl;                            //
     std::cout << "none_ 0: create table" << std::endl; // выведем сообщение о том что набрав ноль пользователь сможет создать новую таблицу
-
 
     /* выводим список таблиц */
     int rc = sqlite3_exec(db, query.c_str(), [](void *data, int argc, char **argv, char **colName) -> int { // Выполнение SQL-запроса, это лямбда функция
         if (argc > 0)                                                                                       // Проверка наличия таблиц в базе данных
         {
             std::cout << "Table " << tableCount << ": " << argv[0] << std::endl; // Вывод названия таблицы с номером
-            tables.push_back(std::string(argv[0]));                              // Добавление названия таблицы в векторs.push_back(std::string(argv[0])); // Добавление названия таблицы в вектор
+            // tables.push_back(std::string(argv[0]));                              // Добавление названия таблицы в векторs
+            tables[tableCount] = std::move(argv[0]);
             tableCount++;
             tableFound = true; // Установка флага на нахождение таблицы
         }
@@ -126,6 +130,11 @@ void list_table(sqlite3 *db) // функция автоматического с
         sqlite3_free(errorMessage);                              // Освобождение памяти, занятой ошибкой
     }
 
+    for (const auto &row : tables)
+    {
+        // std::cout <<row.first << " " << row.second << std::endl;
+        std::cout << row.second << std::endl;
+    }
     /* тестовый блок вывести содержимое вектора */
     // for (const auto &i : tables)
     // {
@@ -133,7 +142,7 @@ void list_table(sqlite3 *db) // функция автоматического с
     // }
 
     /* проверка если не найдены таблицы и флаг поднят */
-    if (tableFound == false) // Проверка на нахождение таблицы
+    if (!tableFound) // Проверка на нахождение таблицы
     {
         tableFound = false;                                           // обнуляем
         std::cout << std::endl;                                       //
@@ -156,7 +165,15 @@ void list_table(sqlite3 *db) // функция автоматического с
         }
         else // запускаем выборку таблиц
         {
-            tableCount = 1; // возвращаем нашу переменную в исходное значение
+            // tableCount = 1; // возвращаем нашу переменную в исходное значение
+            // for (const auto &i : tables)
+            // {
+            //     if (std::stoi(i) == numTable)
+            //     {
+            //         chosenTable = i;
+            //         std::cout << chosenTable << std::endl;
+            //     }
+            // }
         }
     }
 }
