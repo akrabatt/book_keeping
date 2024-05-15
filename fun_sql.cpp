@@ -100,10 +100,7 @@ void list_table(sqlite3 *db) // функция автоматического с
     /* переменная для хранения наименования выбранной таблицы */
     std::string chosenTable; // будет храниться имя выбранной таблицы
 
-    // /* вектор для хранения названий таблиц */
-    // static std::vector<std::string> tables; // данных вектор будет хранить список таблицы
-
-    /* попробуем решить с помощью списка */
+    /* список для хранения списка таблиц в БД чтоб можно было их выдергивать по ключу */
     static std::map<int, std::string> tables; // список
 
     /* выводим предложение о создании новой таблицы для начала */
@@ -130,15 +127,11 @@ void list_table(sqlite3 *db) // функция автоматического с
         sqlite3_free(errorMessage);                              // Освобождение памяти, занятой ошибкой
     }
 
-    for (const auto &row : tables)
-    {
-        // std::cout <<row.first << " " << row.second << std::endl;
-        std::cout << row.second << std::endl;
-    }
-    /* тестовый блок вывести содержимое вектора */
-    // for (const auto &i : tables)
+    /* тестовый блок для отладки */
+    // for (const auto &row : tables)
     // {
-    //     std::cout << i << std::endl; // выведем вектор
+    //     // std::cout <<row.first << " " << row.second << std::endl;
+    //     std::cout << row.second << std::endl;
     // }
 
     /* проверка если не найдены таблицы и флаг поднят */
@@ -165,15 +158,16 @@ void list_table(sqlite3 *db) // функция автоматического с
         }
         else // запускаем выборку таблиц
         {
-            // tableCount = 1; // возвращаем нашу переменную в исходное значение
-            // for (const auto &i : tables)
-            // {
-            //     if (std::stoi(i) == numTable)
-            //     {
-            //         chosenTable = i;
-            //         std::cout << chosenTable << std::endl;
-            //     }
-            // }
+            for (const auto &row : tables)
+            {
+                /* ищем совпадение по ключу */
+                if (row.first == numTable) //
+                {
+                    std::cout << "find !" << std::endl;
+                    chosenTable = row.second; // добавляем в нашу переменную для хранения работы с таблицой наименования таблицы
+                    std::cout << chosenTable << std::endl;
+                }
+            }
         }
     }
 }
