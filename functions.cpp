@@ -41,8 +41,14 @@ void jump_to_choice(int choice, sqlite3 *db)
 {
     switch (choice)
     {
-    case 5:
+    case 5:             // позиция переключить на другую таблицу
         list_table(db); // функция по выводу списка таблиц
+        int again;      // переменна для рекурсии
+        again = menu(); // записывам в переменную возвращаемое значение
+        if (again == 5) // если вызываем опять сами себя
+        {
+            return jump_to_choice(5, db); // рекурсивно возвращаемся в начало текущей функции
+        }
         break;
 
     default:
