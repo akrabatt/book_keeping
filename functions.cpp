@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include "headders_src/global_var.h"
 #include "sql_src/sqlite3.h"
 #include "headders_src/extern.h"
@@ -49,6 +50,10 @@ void jump_to_choice(int choice, sqlite3 *db)
         {
             return jump_to_choice(5, db); // рекурсивно возвращаемся в начало текущей функции
         }
+        break;
+
+    case 6:
+        exit(0); // выход из программы
         break;
 
     default:

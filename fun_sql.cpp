@@ -127,6 +127,8 @@ std::string list_table(sqlite3 *db) // функция автоматическо
         std::cerr << "SQL error: " << errorMessage << std::endl; // Вывод сообщения об ошибке
         sqlite3_free(errorMessage);                              // Освобождение памяти, занятой ошибкой
     }
+    /* обнуляем tableCount */
+    tableCount = 1; // обнуляем tableCount
 
     /* тестовый блок для отладки */
     // for (const auto &row : tables)
