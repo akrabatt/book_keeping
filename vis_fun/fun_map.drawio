@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-05-13T13:09:29.560Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.2.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="28jncj3j24VtowQpnjP1" version="24.2.5" type="device">
+<mxfile host="Electron" modified="2024-05-15T11:11:32.339Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.2.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="d2lOGfMJ0mNW6nQeZXPo" version="24.2.5" type="device">
   <diagram name="Page-1" id="5d7acffa-a066-3a61-03fe-96351882024d">
-    <mxGraphModel dx="1344" dy="1331" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#B3B3B3" math="0" shadow="0">
+    <mxGraphModel dx="2640" dy="1397" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#B3B3B3" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -10,7 +10,7 @@
         <mxCell id="KhB3Vlkd83CNaLOpbNGe-2" value="принимает значение в виде указателя на&amp;nbsp; базу данных&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;shadow=0;fontColor=#000000;" parent="KhB3Vlkd83CNaLOpbNGe-1" vertex="1">
           <mxGeometry y="30" width="170" height="41" as="geometry" />
         </mxCell>
-        <mxCell id="L60N4qDu5yBO_N0uDxby-3" value="функция по созданию таблицы" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" parent="1" vertex="1">
+        <mxCell id="L60N4qDu5yBO_N0uDxby-3" value="функция list_table" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="147" y="-31" width="189" height="30" as="geometry" />
         </mxCell>
         <mxCell id="r_YqrAHaJlJIWSJqDCds-1" value="выход" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
@@ -131,6 +131,42 @@
         </mxCell>
         <mxCell id="r_YqrAHaJlJIWSJqDCds-48" value="выбор 2" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="795" y="582" width="63" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-56" value="вход" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-1060" y="-10" width="140" height="297" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-57" value="данная функция служит для переадрисации из меню в функцию которую выбрал пользователь" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-56">
+          <mxGeometry y="30" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-59" value="принимаемое значение - глобальная численная переменная которую ввел пользователь из в функции menu" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-56">
+          <mxGeometry y="130" width="140" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-61" value="функция реализовывается с помощью switch - case" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-56">
+          <mxGeometry y="229" width="140" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-58" value="функция jump_to_choice(int choise)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-1084.5" y="-47" width="205.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-62" value="оператор switch" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-1060" y="407" width="140" height="93" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-63" value="принимает условие перемменной (menu_ch)" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-62">
+          <mxGeometry y="30" width="140" height="63" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-64" value="case 5&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-686" y="699" width="140" height="93" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-65" value="если menu_ch == 5&lt;div&gt;то перенаправляем к функции list_table&lt;/div&gt;" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-64">
+          <mxGeometry y="30" width="140" height="63" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-66" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0.998;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#000000;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-63" target="r_YqrAHaJlJIWSJqDCds-64">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-920" y="589" as="sourcePoint" />
+            <mxPoint x="-760" y="589" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-67" value="case == 5" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-66">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
