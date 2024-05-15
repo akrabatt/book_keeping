@@ -8,7 +8,10 @@ int main()
 	// которую вернула нам наша функция, там мы сможем работать с базой данных и передавать ее
 	sqlite3 *db = open_or_create_db(); // открываем базу данных
 	//
-	list_table(db);
+	// std::string test_string;
+	chosen_table  = list_table(db);
+
+	std::cout << "its work: "<< chosen_table;
 	//std::cout << "hello!" << std::endl;
 	//menu_ch = menu();
 	//std::cout << "result: " << menu_ch << std::endl;
