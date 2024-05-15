@@ -10,4 +10,4 @@ extern std::string chosen_table; //переменная для хранения 
 /* функции */
 extern int menu();                     // функция меню
 extern std::string list_table(sqlite3 *db);   // функция по выводу списка таблиц
-extern void create_table(sqlite3 *db); // функция по созданию таблицы
+extern std::string create_table(sqlite3 *db); // функция по созданию таблицы
