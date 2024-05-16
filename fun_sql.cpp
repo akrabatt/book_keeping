@@ -198,7 +198,7 @@ void del_table(sqlite3 *db, std::string table_name_for_del) // функция п
     /* создаем текст sql запроса */
     std::string dl_tbl = "DROP TABLE IF EXISTS " + table_name_for_del + ";";
 
-    int menu_again; // определяем переменную для возврата в меню
+    // int menu_again; // определяем переменную для возврата в меню
 
     /* обработка введенного значения */
     switch (i)
@@ -216,15 +216,15 @@ void del_table(sqlite3 *db, std::string table_name_for_del) // функция п
 
         /* возвращаемся обратно */
         chosen_table = list_table(db); // функция по выводу списка таблиц
-        menu_again = menu();                                       // возвращаемся в меню
-        return jump_to_choice(menu_again, db, table_name_for_del); // обрабатываем опять
+        menu_ch = menu();                                       // возвращаемся в меню
+        return jump_to_choice(menu_ch, db, chosen_table); // обрабатываем опять
         break;
 
         /* позиция если отменяешь удаление */
     case 2:                  // отмена, возвращаем
-        menu_again = menu(); // возвращаемся в меню
+        menu_ch = menu(); // возвращаемся в меню
 
-        return jump_to_choice(menu_again, db, table_name_for_del); // обрабатываем опять
+        return jump_to_choice(menu_ch, db, table_name_for_del); // обрабатываем опять
         break;
 
     default:
