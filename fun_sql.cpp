@@ -230,7 +230,7 @@ void del_table(sqlite3 *db, std::string table_name_for_del) // функция п
         return jump_to_choice(menu_ch, db, table_name_for_del); // обрабатываем опять
         break;
 
-    default:
+    default: // неправильное значение
         /* если выбрано неправильное значение, то возвращаем функцию заново */
         std::cout << std::endl;
         std::cout << "wrong value" << std::endl; // выводим сообщение об ошибке
