@@ -49,12 +49,12 @@ void jump_to_choice(int choice, sqlite3 *db, std::string ch_tb)
         again = menu(); // записывам в переменную возвращаемое значение
         if (again == 5) // если вызываем опять сами себя
         {
-            return jump_to_choice(5, db); // рекурсивно возвращаемся в начало текущей функции
+            return jump_to_choice(5, db, ch_tb); // рекурсивно возвращаемся в начало текущей функции
         }
         break;
 
-    case 6:             // позиция удалить таблицу
-        del_table(db, );
+    case 6:                   // позиция удалить таблицу
+        del_table(db, ch_tb); // переходим в функцию удаления таблицы
 
     case 7:
         exit(0); // выход из программы
