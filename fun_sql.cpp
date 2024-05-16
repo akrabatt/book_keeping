@@ -160,7 +160,7 @@ std::string list_table(sqlite3 *db) // функция автоматическо
         if (numTable < 0 || numTable > numTable_end->first)
         {
             std::cout << std::endl;
-            std::cout << "ERROR: the key was entered incorrectly\n"
+            std::cout << "ERROR: the key was entered incorrectly"
                       << ::std::endl;
             chosen_table = list_table(db);
         }
