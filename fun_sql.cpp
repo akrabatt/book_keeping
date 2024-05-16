@@ -190,8 +190,8 @@ void del_table(sqlite3 *db, std::string table_name_for_del) // функция п
     std::cout << "2 - no" << std::endl;
     std::cout << "...: ";
 
-    int i;         // переменная выбора
-    int rc;        // переменная для запроса
+    int i;  // переменная выбора
+    int rc; // переменная для запроса
     char *sqlite3_errmsg;
     std::cin >> i; // вводим значени
 
@@ -204,7 +204,7 @@ void del_table(sqlite3 *db, std::string table_name_for_del) // функция п
     switch (i)
     {
         /* позиция если согласен с удалением */
-    case 1:                                                               // удаляем
+    case 1:                                                                       // удаляем
         rc = sqlite3_exec(db, dl_tbl.c_str(), nullptr, nullptr, &sqlite3_errmsg); // удаляем таблицу
 
         /* проверяем */
@@ -213,6 +213,11 @@ void del_table(sqlite3 *db, std::string table_name_for_del) // функция п
             std::cerr << "SQL error: " << sqlite3_errmsg << std::endl; // Вывод сообщения об ошибке
             sqlite3_free(sqlite3_errmsg);                              // Освобождение памяти, занятой ошибкой
         }
+
+        /* возвращаемся обратно */
+        chosen_table = list_table(db); // функция по выводу списка таблиц
+        menu_again = menu();                                       // возвращаемся в меню
+        return jump_to_choice(menu_again, db, table_name_for_del); // обрабатываем опять
         break;
 
         /* позиция если отменяешь удаление */
