@@ -155,9 +155,15 @@ std::string list_table(sqlite3 *db) // функция автоматическо
                   << std::endl;
 
         /* создадим переменные для проверки адекватности введенного значения */
-        auto numTable_begin = tables.begin(); // эта переменная для начального значения списка с таблицами
-        auto numTable_end = tables.end();     // эта переменная для конечного значения списка с таблицами
-
+        // auto numTable_begin = tables.begin(); // эта переменная для начального значения списка с таблицами
+        auto numTable_end = tables.end(); // эта переменная для конечного значения списка с таблицами
+        if (numTable < 0 || numTable > numTable_end->first)
+        {
+            std::cout << std::endl;
+            std::cout << "ERROR: the key was entered incorrectly\n"
+                      << ::std::endl;
+            chosen_table = list_table(db);
+        }
         /* создаем условие если выбран 0 то создаем таблицу, если > 0 то заносим имя таблицы в переменную */
         if (numTable == 0) // если 0, то создам таблицу
         {
