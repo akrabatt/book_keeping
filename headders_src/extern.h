@@ -11,4 +11,5 @@ extern std::string chosen_table; // переменная для хранения
 extern int menu();                            // функция меню
 extern std::string list_table(sqlite3 *db);   // функция по выводу списка таблиц
 extern std::string create_table(sqlite3 *db); // функция по созданию таблицы
-void jump_to_choice(int choice, sqlite3 *db); // функция по переадрисации в зависимости от выбранного значения
+void jump_to_choice(int choice, sqlite3 *db, std::string ch_tb); // функция по переадрисации в зависимости от выбранного значения
+extern void del_table(sqlite3 *db, std::string table_name_for_del);

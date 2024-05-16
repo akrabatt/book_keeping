@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-05-15T14:03:51.403Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.2.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="cbAuEp0JCPDOTjO1204M" version="24.2.5" type="device">
+<mxfile host="Electron" modified="2024-05-16T07:46:18.864Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.2.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="vos2rrTl0qoHLqX7X6vK" version="24.2.5" type="device">
   <diagram name="Page-1" id="5d7acffa-a066-3a61-03fe-96351882024d">
-    <mxGraphModel dx="2386" dy="1221" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#B3B3B3" math="0" shadow="0">
+    <mxGraphModel dx="2261" dy="1135" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" background="#B3B3B3" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -203,6 +203,68 @@
             <mxPoint x="-991" y="374" as="targetPoint" />
             <Array as="points" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-79" value="рекурсия" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-686" y="1227" width="140" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-80" value="вызываем опять функцию jump_to_choice сначала" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-79">
+          <mxGeometry y="30" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-81" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#000000;strokeColor=#000000;exitX=0.535;exitY=1.027;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-74" target="r_YqrAHaJlJIWSJqDCds-79">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="-589" y="1189" as="sourcePoint" />
+            <mxPoint x="-585" y="1240" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-83" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.538;exitY=1.016;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#000000;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-63" target="r_YqrAHaJlJIWSJqDCds-86">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-778" y="480" as="sourcePoint" />
+            <mxPoint x="-404" y="679" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-84" value="case == 6" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-83">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-86" value="case 5&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-449" y="704" width="140" height="93" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-87" value="если menu_ch == 6&lt;div&gt;то перенаправляем к функции :&lt;/div&gt;" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-86">
+          <mxGeometry y="30" width="140" height="63" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-88" value="del_table(sqlit3 *db, std::strin table_name)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-411" y="874" width="140" height="123" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-89" value="здесь функция принимает в качестве параметров базу данных и название таблицы" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-88">
+          <mxGeometry y="30" width="140" height="93" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-90" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;rounded=0;exitX=0.517;exitY=1.042;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#000000;strokeColor=#000000;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-87" target="r_YqrAHaJlJIWSJqDCds-88">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="-447" y="801" as="sourcePoint" />
+            <mxPoint x="-449" y="870" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-92" value="предупреждаем пользователя" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-411" y="1068" width="140" height="93" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-93" value="предупреждаем пользователя уверен ли он что хочет удалить таблицу" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-92">
+          <mxGeometry y="30" width="140" height="63" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-98" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-94" target="r_YqrAHaJlJIWSJqDCds-96">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-94" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;rotation=90;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-366" y="1175" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-95" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.493;entryY=1.021;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="r_YqrAHaJlJIWSJqDCds-94" target="r_YqrAHaJlJIWSJqDCds-93">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-96" value="нет" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="-487" y="1275" width="140" height="73" as="geometry" />
+        </mxCell>
+        <mxCell id="r_YqrAHaJlJIWSJqDCds-97" value="выход, return jump_to_choice" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="r_YqrAHaJlJIWSJqDCds-96">
+          <mxGeometry y="30" width="140" height="43" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
