@@ -1,7 +1,5 @@
 /* этот файл для написания функций на sqlite3 */
-
 #include <iostream>
-// #include <vector>
 #include <map>
 #include "sql_src/sqlite3.h"
 #include "headders_src/extern.h"
@@ -145,7 +143,7 @@ std::string list_table(sqlite3 *db) // функция автоматическо
         std::cout << std::endl;                                       //
         std::cout << "No tables found in the database." << std::endl; // Сообщение о отсутствии таблиц
         // chosenTable = create_table(db);                               // создаем таблицу
-        chosen_table = create_table(db);                               // создаем таблицу
+        chosen_table = create_table(db); // создаем таблицу
     }
     /* выводим сообщение о предолжении ввести номер таблицы или создать новую */
     else
@@ -200,7 +198,7 @@ void del_table(sqlite3 *db, std::string table_name_for_del) // функция п
     char *sqlite3_errmsg;
     std::cin >> i; // вводим значени
 
-    /* создаем текст sql запроса */
+    /* создаем текст для sql запроса */
     std::string dl_tbl = "DROP TABLE IF EXISTS " + table_name_for_del + ";";
 
     // int menu_again; // определяем переменную для возврата в меню
@@ -220,13 +218,13 @@ void del_table(sqlite3 *db, std::string table_name_for_del) // функция п
         }
 
         /* возвращаемся обратно */
-        chosen_table = list_table(db); // функция по выводу списка таблиц
-        menu_ch = menu();                                       // возвращаемся в меню
+        chosen_table = list_table(db);                    // функция по выводу списка таблиц
+        menu_ch = menu();                                 // возвращаемся в меню
         return jump_to_choice(menu_ch, db, chosen_table); // обрабатываем опять
         break;
 
         /* позиция если отменяешь удаление */
-    case 2:                  // отмена, возвращаем
+    case 2:               // отмена, возвращаем
         menu_ch = menu(); // возвращаемся в меню
 
         return jump_to_choice(menu_ch, db, table_name_for_del); // обрабатываем опять
@@ -234,6 +232,10 @@ void del_table(sqlite3 *db, std::string table_name_for_del) // функция п
 
     default:
         /* если выбрано неправильное значение, то возвращаем функцию заново */
+        std::cout << std::endl;
+        std::cout << "wrong value" << std::endl; // выводим сообщение об ошибке
+        std::cout << std::endl;
+        del_table(db, table_name_for_del); // рекурсивно вызываем функцию
         break;
     }
 }
