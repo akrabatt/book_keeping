@@ -180,7 +180,7 @@ std::string list_table(sqlite3 *db) // функция автоматическо
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* эта функция служит для удаления таблицы */
-void del_table(sqlite3 *db, std::string table_name_for_del)
+void del_table(sqlite3 *db, std::string table_name_for_del) // функция принимает указатель на БД и наименование таблицы
 {
     /* блок диалога с пользователем, уверен ли он в удалении */
     std::cout << std::endl;
@@ -191,23 +191,39 @@ void del_table(sqlite3 *db, std::string table_name_for_del)
     std::cout << "...: ";
 
     int i;         // переменная выбора
+    int rc;        // переменная для запроса
+    char *sqlite3_errmsg;
     std::cin >> i; // вводим значени
+
+    /* создаем текст sql запроса */
+    std::string dl_tbl = "DROP TABLE IF EXISTS " + table_name_for_del + ";";
+
+    int menu_again; // определяем переменную для возврата в меню
 
     /* обработка введенного значения */
     switch (i)
     {
+        /* позиция если согласен с удалением */
+    case 1:                                                               // удаляем
+        rc = sqlite3_exec(db, dl_tbl.c_str(), nullptr, nullptr, &sqlite3_errmsg); // удаляем таблицу
 
-    case 1: // удаляем
-        /* code */
+        /* проверяем */
+        if (rc != SQLITE_OK)
+        {
+            std::cerr << "SQL error: " << sqlite3_errmsg << std::endl; // Вывод сообщения об ошибке
+            sqlite3_free(sqlite3_errmsg);                              // Освобождение памяти, занятой ошибкой
+        }
         break;
 
-    case 2: // отмена, возвращаем
-        int menu_again;
-        menu_again = menu();
-        return jump_to_choice(menu_again, db, table_name_for_del);
+        /* позиция если отменяешь удаление */
+    case 2:                  // отмена, возвращаем
+        menu_again = menu(); // возвращаемся в меню
+
+        return jump_to_choice(menu_again, db, table_name_for_del); // обрабатываем опять
         break;
 
     default:
+        /* если выбрано неправильное значение, то возвращаем функцию заново */
         break;
     }
 }
