@@ -413,6 +413,16 @@ void add_book_in_table(sqlite3 *db, const std::string &table_name)
         int ch;
         std::cin >> ch;
         std::cout << "\n";
+
+        /* проверка на то что введено число, а не символы или буквв */
+        if (std::cin.fail())
+        {
+            std::cin.clear();                                                   // Очистка флага ошибки
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очистка потока
+            std::cout << "Invalid input. Please enter a number 1 or 2 !!!\n";   // выводим сообщение об ошибкеы
+            continue;
+        }
+
         if (ch == 1) // рекурсивно возвращаем функцию
         {
             return add_book_in_table(db, table_name); // рекурсия
