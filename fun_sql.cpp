@@ -1,6 +1,7 @@
 /* этот файл для написания функций на sqlite3 */
 #include <iostream>
 #include <map>
+#include <limits>
 #include "sql_src/sqlite3.h"
 #include "headders_src/extern.h"
 
@@ -304,10 +305,27 @@ void add_book_in_table(sqlite3 *db, const std::string &table_name)
     std::cout << std::endl;
 
     /* год */
-    std::cout << "enter book year: ";
-    std::cin >> year;
-    std::cin.ignore(); // очищаем буфер
-    std::cout << std::endl;
+    // Проверка ввода года
+    while (true) // пока не будет прерван с помощью breake
+    {
+        /* пердлагаем ввод */
+        std::cout << "enter book year: ";
+        std::cin >> year;
+
+        // Проверка на успешное преобразование в число
+        if (std::cin.fail()) // проверяет успешно ли прошло приобразование введенного значения в число, если НЕ успешно
+        {
+            std::cin.clear();                                                      // Очистка флага ошибки
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');    // Очистка потока
+            std::cout << "Invalid input. Please enter a valid year." << std::endl; // выводим сообщение об ошибкеы
+        }
+        else // если введено правильно
+        {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очистка остатка потока
+
+            break; // ВЫХОД
+        }
+    }
 
     /* создадим запрос */
     std::string sql_add_book = "INSERT INTO " + table_name + " (id, title, author, year, genre) VALUES (?, ?, ?, ?, ?);"; // создаем текст запроса
