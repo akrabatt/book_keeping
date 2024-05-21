@@ -259,18 +259,29 @@ void add_book_in_table(sqlite3 *db, const std::string &table_name)
     std::string title, author, genre; // строковые переменные
     int year, id;                     // численная переменная
     sqlite3_stmt *stmt_id;            // указатель для выражения, будет служить для id
-    std::string sql_id = "SELECT MAX(id) " + table_name + ";";
 
-    /* автоматически получаем значение id */
-    // std::cout << "enter book id: ";
-    // std::cin >> id;    //
-    std::cin.ignore(); // очищаем буфер
-    std::cout << std::endl;
+    /* запрос для получения максимального id */
+    std::string sql_id = "SELECT MAX(id) FROM " + table_name + ";"; // запрос для получения максимального значения
+
+    /* подготавливаем запрос на получения id */
+    // if (sqlite3_prepare_v2(db, sql_id.c_str(), -1, &stmt_id, NULL) == SQLITE_OK)
+    // {
+    //     if (sqlite3_step(stmt_id) == SQLITE_OK) // выполняем запрос
+    //     {
+    //         id = sqlite3_column_int(stmt_id, 0); // получаем id
+    //         std::cout << id << std::endl;
+    //     }
+    // }
+    sqlite3_prepare_v2(db, sql_id.c_str(), -1, &stmt_id, NULL);
+    id = sqlite3_column_int(stmt_id, 0); 
+    id++; //
+    std::cout << id << std::endl;
+    sqlite3_finalize(stmt_id); // освобождаем память
 
     /* далее начнем воод данных */
     /* название таблицы */
     std::cout << "enter book title: ";
-    // std::cin.ignore(); // очищаем буфер
+    std::cin.ignore(); // очищаем буфер
     std::getline(std::cin, title);
     std::cout << std::endl;
 
