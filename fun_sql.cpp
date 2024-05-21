@@ -306,6 +306,16 @@ void add_book_in_table(sqlite3 *db, const std::string &table_name, struct BOOK *
             /* возвращаем ошибку */
             std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
         }
+        else // успешное выполнение
+        {
+            std::cout << "Book added successfully" << std::endl; // выводим сообщение об успешном добавлении
+        }
+        /* завершаем работу с запросом */
+        sqlite3_finalize(stmt);
+    }
+    else // если подготовка запроса не удалась
+    {
+        std::cerr << "SQL error: failed to prepare statement" << std::endl;
     }
 }
 
