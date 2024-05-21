@@ -264,18 +264,24 @@ void add_book_in_table(sqlite3 *db, const std::string &table_name)
     std::string sql_id = "SELECT MAX(id) FROM " + table_name + ";"; // запрос для получения максимального значения
 
     /* подготавливаем запрос на получения id */
-    // if (sqlite3_prepare_v2(db, sql_id.c_str(), -1, &stmt_id, NULL) == SQLITE_OK)
-    // {
-    //     if (sqlite3_step(stmt_id) == SQLITE_OK) // выполняем запрос
-    //     {
-    //         id = sqlite3_column_int(stmt_id, 0); // получаем id
-    //         std::cout << id << std::endl;
-    //     }
-    // }
-    sqlite3_prepare_v2(db, sql_id.c_str(), -1, &stmt_id, NULL);
-    id = sqlite3_column_int(stmt_id, 0); 
-    id++; //
-    std::cout << id << std::endl;
+    int result = sqlite3_prepare_v2(db, sql_id.c_str(), -1, &stmt_id, NULL); // заносим в переменную результат подготовки запроса
+    if (result != SQLITE_OK)                                                 // если запрос подготовлен неуспешно
+    {
+        std::cerr << "SQLite error: " << sqlite3_errmsg(db) << std::endl; // сообщение об ошибке
+        return;
+    }
+
+    result = sqlite3_step(stmt_id); // выполним шаг
+    if (result == SQLITE_ROW)
+    {
+        id = sqlite3_column_int(stmt_id, 0); // заносим в переменную id максимальное значение
+        id++;                                // увеличиваем id
+    }
+    else
+    {
+        id = 1; // если таблица пустая, то присваиваем уникальное значение
+    }
+
     sqlite3_finalize(stmt_id); // освобождаем память
 
     /* далее начнем воод данных */
