@@ -253,30 +253,37 @@ void del_table(sqlite3 *db, std::string table_name_for_del) // функция п
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* эта функция служит для добавления в таблицу выбранную пользователем данные */
-void add_book_in_table(sqlite3 *db, const std::string &table_name, struct BOOK *book)
+void add_book_in_table(sqlite3 *db, const std::string &table_name)
 {
     /* создадим переменные которые будут служить для данных о книге */
     std::string title, author, genre; // строковые переменные
-    int year;                         // численная переменная
+    int year, id;                     // численная переменная
+    sqlite3_stmt *stmt_id;            // указатель для выражения, будет служить для id
+    std::string sql_id = "SELECT MAX(id) " + table_name + ";";
+
+    /* автоматически получаем значение id */
+    // std::cout << "enter book id: ";
+    // std::cin >> id;    //
+    std::cin.ignore(); // очищаем буфер
+    std::cout << std::endl;
 
     /* далее начнем воод данных */
-
     /* название таблицы */
     std::cout << "enter book title: ";
+    // std::cin.ignore(); // очищаем буфер
     std::getline(std::cin, title);
-    std::cin.ignore(); // очищаем буфер
     std::cout << std::endl;
 
     /* автор */
     std::cout << "enter book author: ";
+    // std::cin.ignore(); // очищаем буфер
     std::getline(std::cin, author);
-    std::cin.ignore(); // очищаем буфер
     std::cout << std::endl;
 
     /* жанр */
     std::cout << "enter book genre: ";
+    // std::cin.ignore(); // очищаем буфер
     std::getline(std::cin, genre);
-    std::cin.ignore(); // очищаем буфер
     std::cout << std::endl;
 
     /* год */
@@ -286,7 +293,7 @@ void add_book_in_table(sqlite3 *db, const std::string &table_name, struct BOOK *
     std::cout << std::endl;
 
     /* создадим запрос */
-    std::string sql_add_book = "INSERT INTO " + table_name + " (title, author, year, genre) VALUES (?, ?, ?, ?);"; // создаем текст запроса
+    std::string sql_add_book = "INSERT INTO " + table_name + " (id, title, author, year, genre) VALUES (?, ?, ?, ?, ?);"; // создаем текст запроса
 
     sqlite3_stmt *stmt; // результат запроса
     const char *pzTest;
@@ -295,10 +302,11 @@ void add_book_in_table(sqlite3 *db, const std::string &table_name, struct BOOK *
     if (sqlite3_prepare_v2(db, sql_add_book.c_str(), -1, &stmt, &pzTest) == SQLITE_OK) // сама функция подготовки запроса, ее включили в условие
     {
         /* теперь привязываем значения */
-        sqlite3_bind_text(stmt, 1, title.c_str(), -1, SQLITE_STATIC);  // добавляем название книги
-        sqlite3_bind_text(stmt, 2, author.c_str(), -1, SQLITE_STATIC); // добавляем автора книги
-        sqlite3_bind_int(stmt, 3, year);                               // добавляем год книги
-        sqlite3_bind_text(stmt, 4, genre.c_str(), -1, SQLITE_STATIC);  // добавляем жанр книги
+        sqlite3_bind_int(stmt, 1, id);                                 // добавляем год книги
+        sqlite3_bind_text(stmt, 2, title.c_str(), -1, SQLITE_STATIC);  // добавляем название книги
+        sqlite3_bind_text(stmt, 3, author.c_str(), -1, SQLITE_STATIC); // добавляем автора книги
+        sqlite3_bind_int(stmt, 4, year);                               // добавляем год книги
+        sqlite3_bind_text(stmt, 5, genre.c_str(), -1, SQLITE_STATIC);  // добавляем жанр книги
 
         /* выполнение самого sql - запроса */
         if (sqlite3_step(stmt) != SQLITE_DONE) // возвращаем значение и если его результат не равен "сделано"

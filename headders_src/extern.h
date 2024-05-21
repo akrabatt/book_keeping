@@ -13,3 +13,4 @@ extern std::string list_table(sqlite3 *db);   // функция по вывод�
 extern std::string create_table(sqlite3 *db); // функция по созданию таблицы
 void jump_to_choice(int choice, sqlite3 *db, std::string ch_tb); // функция по переадрисации в зависимости от выбранного значения
 extern void del_table(sqlite3 *db, std::string table_name_for_del);	//функция по удалению таблицы из базы данных
+void add_book_in_table(sqlite3 *db, const std::string &table_name);	//функция добавления книги в таблицу
