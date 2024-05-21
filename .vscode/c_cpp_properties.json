@@ -1,22 +1,22 @@
 {
   "configurations": [
-      {
-          "name": "Win32",
-          "includePath": [
-              "${workspaceFolder}/**",
-              "C:\\Users\\usr\\YandexDisk\\projeckts_cpp\\tstsql\\lib_sqlite3"
-          ],
-          "defines": [
-              "_DEBUG",
-              "UNICODE",
-              "_UNICODE"
-          ],
-          "windowsSdkVersion": "10.0.19041.0",
-          "compilerPath": "C:\\path\\to\\your\\g++.exe",
-          "cStandard": "c11",
-          "cppStandard": "c++17",
-          "intelliSenseMode": "windows-gcc-x64"
-      }
+    {
+      "name": "linux-gcc-x64",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "\"C:\\\\Users\\\\usr\\\\YandexDisk\\\\projeckts_cpp\\\\tstsql\\\\lib_sqlite3\""
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE"
+      ],
+      "windowsSdkVersion": "10.0.19041.0",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "${default}",
+      "cppStandard": "${default}",
+      "intelliSenseMode": "linux-gcc-x64"
+    }
   ],
   "version": 4
 }
