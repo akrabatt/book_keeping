@@ -407,16 +407,14 @@ void add_book_in_table(sqlite3 *db, const std::string &table_name)
     std::cout << " \nwould you like to create a new book again ?\n";
     while (true)
     {
-        /* выводим предложения выбраь функцию */
-        std::cout << "1. Yes, create a new book\n";  // создать новую книгу
-        std::cout << "2. No, return in main menu\n"; // вернуться в меню
+        std::cout << "1. Yes, create a new book\n";
+        std::cout << "2. No, return in main menu\n";
         std::cout << "..: ";
-        int ch;         // переменная для выбора
-        std::cin >> ch; // предлагаем ввести переменнуую
+        int ch;
+        std::cin >> ch;
         std::cout << "\n";
 
-        /* проверка на адекватность значения */
-        /* 1. проверка на то что введено число, а не символы или буквв */
+        /* проверка на то что введено число, а не символы или буквв */
         if (std::cin.fail())
         {
             std::cin.clear();                                                   // Очистка флага ошибки
@@ -425,7 +423,6 @@ void add_book_in_table(sqlite3 *db, const std::string &table_name)
             continue;
         }
 
-        /* 2. а вот теперь проверка на адекватность числа */
         if (ch == 1) // рекурсивно возвращаем функцию
         {
             return add_book_in_table(db, table_name); // рекурсия
