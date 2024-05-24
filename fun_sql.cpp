@@ -587,8 +587,8 @@ void find_change_info_book(sqlite3 *db)
     std::string book_title; // для наименования искомой книги
 
     std::cout << "Enter the name of the book you want to find: ";
-    std::getline(std::cin, book_title);                                 // cчитываем данные
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // очистка остатка потока
+    std::getline(std::cin, book_title);                                 // cчитываем данные
 
     fing_book(db, vector_tables, book_title);
 }
