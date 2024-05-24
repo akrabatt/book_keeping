@@ -502,44 +502,93 @@ std::vector<std::string> get_tables(sqlite3 *db) // функция для пол
  * Внутри функции циклически формируется SQL-запрос для поиска книги по названию, по очереди проходят циклически все наименования таблицы
  * и после того как книга найдена, наименование ее таблицы и самой книги вносится в пару  возвращается
  */
-std::pair<std::string, std::string> fing_book(sqlite3 *db, std::vector<std::string> &input_vector_tables, std::string &book_title)
+void fing_book(sqlite3 *db, std::vector<std::string> &input_vector_tables, std::string &book_title)
+// std::pair<std::string, std::string> fing_book(sqlite3 *db, std::vector<std::string> &input_vector_tables, std::string &book_title)
 {
+    // std::cout << "!!!!test _fing_book_!!!!\n";
+    // for(std::string tables : input_vector_tables)
+    // {
+    //     std::cout << tables << std::endl;
+    // }
     /* данная функция будет искать книгу и возвращать пару таблица:книга */
-    for (const std::string &tabel : input_vector_tables) // создаем ссылку на элемент вектора и работаем именно с оригиналом
+    // Для каждого элемента вектора таблиц
+    for (const std::string &tabel : input_vector_tables)
     {
-        std::string sql_find_book = "SELECT * FROM " + tabel + " WHERE title LIKE ?;"; // текст запроса
-        sqlite3_stmt *stmt_find_book;                                                  // указатель на объект выражения
+        // Создаем SQL-запрос для поиска книги по названию
+        std::string sql_find_book = "SELECT * FROM " + tabel + " WHERE title LIKE ?;";
 
-        /* подготавливаем запрос */
-        if (sqlite3_prepare_v2(db, sql_find_book.c_str(), -1, &stmt_find_book, nullptr) == SQLITE_OK)
+        // Создаем указатель на объект выражения SQLite
+        sqlite3_stmt *stmt_find_book;
+
+        // Подготавливаем запрос
+        int rc = sqlite3_prepare_v2(db, sql_find_book.c_str(), -1, &stmt_find_book, nullptr);
+        // Проверяем успешность подготовки запроса
+        if (rc != SQLITE_OK)
         {
-            /* привязываем значение через bind к вопросительному знаку */
-            sqlite3_bind_text(stmt_find_book, 1, book_title.c_str(), -1, SQLITE_STATIC);
-
-            /* выполняем сам запрос и извлекаем результаты */
-            while (sqlite3_step(stmt_find_book) == SQLITE_ROW) // пербираем результаты, пока step возвращает ROW
-            {
-                std::cout << "Found in table " << tabel << ": ";
-            }
+            // Выводим сообщение об ошибке и продолжаем к следующей таблице
+            std::cerr << "Error prepere req: " << sqlite3_errmsg(db) << std::endl;
+            continue;
         }
+
+        // Привязываем значение параметра к запросу
+        rc = sqlite3_bind_text(stmt_find_book, 1, book_title.c_str(), -1, SQLITE_STATIC);
+        // Проверяем успешность привязки параметра
+        if (rc != SQLITE_OK)
+        {
+            // Выводим сообщение об ошибке, освобождаем ресурсы и продолжаем к следующей таблице
+            std::cerr << "Error bind: " << sqlite3_errmsg(db) << std::endl;
+            sqlite3_finalize(stmt_find_book);
+            continue;
+        }
+
+        // Выполняем запрос и извлекаем результаты
+        while (sqlite3_step(stmt_find_book) == SQLITE_ROW)
+        {
+            // Выводим информацию о найденной книге, начиная с названия таблицы
+            std::cout << "Found in table " << tabel << ": ";
+            // Перебираем все колонки в строке ответа и выводим их значения
+            for (int i = 0; i < sqlite3_column_count(stmt_find_book); i++)
+            {
+                std::cout << reinterpret_cast<const char *>(sqlite3_column_text(stmt_find_book, i)) << " ";
+            }
+            std::cout << std::endl;
+        }
+
+        // Проверяем на ошибки выполнения шага запроса
+        if (sqlite3_step(stmt_find_book) != SQLITE_DONE)
+        {
+            // Выводим сообщение об ошибке, если выполнение запроса завершилось с ошибкой
+            std::cerr << "Error in req: " << sqlite3_errmsg(db) << std::endl;
+        }
+
+        // Освобождаем ресурсы, занятые выражением
+        sqlite3_finalize(stmt_find_book);
     }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/* документационный комментарий */
+void find_change_info_book(sqlite3 *db)
+{
+    /* создадим переменную в которой будет храниться результат выполнения функции по
+    получению списка таблиц */
+    std::vector<std::string> vector_tables; // переменаая хранения наименований таблиц
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /* документационный комментарий */
-    void find_change_info_book(sqlite3 * db)
-    {
-        /* создадим переменную в которой будет храниться результат выполнения функции по
-        получению списка таблиц */
-        std::vector<std::string> vector_tables; // переменаая хранения наименований таблиц
+    vector_tables = get_tables(db); // получаем список таблиц
 
-        vector_tables = get_tables(db); // получаем список таблиц
+    // std::cout << "!!!!test _find_change_info_book_!!!!\n";
+    // for (std::string tables : vector_tables)
+    // {
+    //     std::cout << tables << std::endl;
+    // }
 
-        /* далее спросим у пользователя какую книгу он хочет найти по названию */
-        std::string book_title; // для наименования искомой книги
+    /* далее спросим у пользователя какую книгу он хочет найти по названию */
+    std::string book_title; // для наименования искомой книги
 
-        std::cout << "Enter the name of the book you want to find: ";
-        std::getline(std::cin, book_title);                                 // cчитываем данные
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // очистка остатка потока
-    }
+    std::cout << "Enter the name of the book you want to find: ";
+    std::getline(std::cin, book_title);                                 // cчитываем данные
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // очистка остатка потока
+
+    fing_book(db, vector_tables, book_title);
+}

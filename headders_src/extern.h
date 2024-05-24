@@ -17,3 +17,4 @@ extern void jump_to_choice(int choice, sqlite3 *db, std::string ch_tb); // фу�
 extern void del_table(sqlite3 *db, std::string table_name_for_del);	//функция по удалению таблицы из базы данных
 extern void add_book_in_table(sqlite3 *db, const std::string &table_name);	//функция добавления книги в таблицу
 extern std::vector<std::string> get_tables(sqlite3 *db); // функция для получения вектора таблиц
+extern void find_change_info_book(sqlite3 *db);
