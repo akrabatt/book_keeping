@@ -546,8 +546,9 @@ std::pair<std::string, std::string> find_book(sqlite3 *db, std::vector<std::stri
                 else // Обработка ошибок
                 {
                     std::cerr << "SQL error in table " << table << ": " << sqlite3_errmsg(db) << std::endl; // Выводим сообщение об ошибке
-
-                    break; // Выходим из цикла при ошибке
+                    menu_ch = menu();                                                                       // выходим в меню обратно
+                    jump_to_choice(menu_ch, db, chosen_table);                                              // переходим к выбору
+                    break;                                                                                  // Выходим из цикла при ошибке
                 }
             }
             sqlite3_finalize(stmt_find_book); // Освобождаем ресурсы
@@ -561,8 +562,44 @@ std::pair<std::string, std::string> find_book(sqlite3 *db, std::vector<std::stri
     // Если книга не найдена
     if (!found)
     {
-        std::cout << "Book not found in any table." << std::endl; // Выводим сообщение, что книга не найдена
-        /* даем выбор пользователю либо выйти либо попробовать заново */
+        std::cout << "Book not found in any table.\n1 - Try again.\n2 - Go to main menu\n ...: "; // Выводим сообщение, что книга не найдена
+        while (true)                                                                              // запускаем предоставление выбора
+        {
+            /* даем выбор пользователю либо выйти либо попробовать заново */
+            int choice; // переменная для выбора действия
+
+            // std::cin.ignore(); // очищаем буфер
+            std::cin >> choice; // вводим переменную
+
+            /* проверка на то что нет символов, а введены только цифры */
+            if (std::cin.fail())
+            {
+                std::cin.clear();                                                                                            // Очистка флага ошибки
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');                                          // Очистка потока
+                std::cout << "Invalid input. Please enter a number 1 or 2 !!!\n1 - Try again.\n2 - Go to main menu\n ...: "; // выводим сообщение об ошибкеы
+                continue;
+            }
+
+            /* обрабатываем выбор */
+            switch (choice)
+            {
+            case 1:                        // если хотим еще раз попробовать
+                find_change_info_book(db); // возвращаемся и пробуем еще раз
+                break;
+
+            case 2:                                        // если хотим выйти в главное меню
+                menu_ch = menu();                          // выходим в меню обратно
+                jump_to_choice(menu_ch, db, chosen_table); // переходим к выбору
+                break;
+
+            default: // если введено неправильное значение
+                std::cout << "Error: invalid value, try again" << std::endl;
+                break;
+            }
+        }
+
+        // menu_ch = menu();                          // выходим в меню обратно
+        // jump_to_choice(menu_ch, db, chosen_table); // переходим к выбору
     }
 
     return pair_table_book; // Возвращаем пару таблица:книгаu
