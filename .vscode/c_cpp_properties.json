@@ -1,7 +1,7 @@
 {
   "configurations": [
     {
-      "name": "linux-gcc-x64",
+      "name": "windows-gcc-x86",
       "includePath": [
         "${workspaceFolder}/**",
         "\"C:\\\\Users\\\\usr\\\\YandexDisk\\\\projeckts_cpp\\\\tstsql\\\\lib_sqlite3\""
@@ -12,10 +12,10 @@
         "_UNICODE"
       ],
       "windowsSdkVersion": "10.0.19041.0",
-      "compilerPath": "/usr/bin/gcc",
+      "compilerPath": "C:/MinGW/bin/gcc.exe",
       "cStandard": "${default}",
       "cppStandard": "${default}",
-      "intelliSenseMode": "linux-gcc-x64"
+      "intelliSenseMode": "windows-gcc-x86"
     }
   ],
   "version": 4
