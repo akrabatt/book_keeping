@@ -502,9 +502,11 @@ std::vector<std::string> get_tables(sqlite3 *db) // функция для пол
  * Внутри функции циклически формируется SQL-запрос для поиска книги по названию, по очереди проходят циклически все наименования таблицы
  * и после того как книга найдена, наименование ее таблицы и самой книги вносится в пару  возвращается
  */
-// std::pair<std::string, std::string> find_book(sqlite3 *db, std::vector<std::string> &input_vector_tables, std::string &book_title)
-void find_book(sqlite3 *db, std::vector<std::string> &input_vector_tables, std::string &book_title)
+std::pair<std::string, std::string> find_book(sqlite3 *db, std::vector<std::string> &input_vector_tables, std::string &book_title)
 {
+    // объявляем пару таблица:книга
+    std::pair<std::string, std::string> pair_table_book; // пара таблица:книга
+
     bool found = false; // Флаг для отслеживания, была ли найдена книга
 
     // Проходим по каждой таблице
@@ -528,12 +530,12 @@ void find_book(sqlite3 *db, std::vector<std::string> &input_vector_tables, std::
                 if (step_result == SQLITE_ROW)                  // Если найдена строка
                 {
                     std::cout << "Found in table " << table << ": "; // Выводим название таблицы
-                    // Перебираем все колонки найденной строки
-                    for (int i = 0; i < sqlite3_column_count(stmt_find_book); i++)
-                    {
-                        // Выводим значения колонок
-                        std::cout << reinterpret_cast<const char *>(sqlite3_column_text(stmt_find_book, i)) << " ";
-                    }
+                    /* заносим данные в таблицу */
+                    pair_table_book.first = table;                                                                   // заносим в пару название таблицы
+                    pair_table_book.second = reinterpret_cast<const char *>(sqlite3_column_text(stmt_find_book, 1)); // заносим в пару значения книги
+
+                    // std::cout << pair_table_book.first << ":" << pair_table_book.second << std::endl;
+
                     std::cout << std::endl;
                     found = true; // Устанавливаем флаг, что книга найдена
                 }
@@ -562,6 +564,8 @@ void find_book(sqlite3 *db, std::vector<std::string> &input_vector_tables, std::
         std::cout << "Book not found in any table." << std::endl; // Выводим сообщение, что книга не найдена
         /* даем выбор пользователю либо выйти либо попробовать заново */
     }
+
+    return pair_table_book; // Возвращаем пару таблица:книгаu
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -575,12 +579,6 @@ void find_change_info_book(sqlite3 *db)
 
     vector_tables = get_tables(db); // получаем список таблиц
 
-    // std::cout << "!!!!test _find_change_info_book_!!!!\n";
-    // for (std::string tables : vector_tables)
-    // {
-    //     std::cout << tables << std::endl;
-    // }
-
     /* далее спросим у пользователя какую книгу он хочет найти по названию */
     std::string book_title; // для наименования искомой книги
 
@@ -588,7 +586,12 @@ void find_change_info_book(sqlite3 *db)
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // очистка остатка потока
     std::getline(std::cin, book_title);                                 // cчитываем данные
 
-    find_book(db, vector_tables, book_title);
+    /* создаем переменную для храниня пары */
+    std::pair<std::string, std::string> pair_table_book; // пара таблица:книга
+
+    pair_table_book = find_book(db, vector_tables, book_title); // выполняем функцию и заносим в переменную результат выполнения
+
+    // std::cout << pair_table_book.first << ":" << pair_table_book.second << std::endl;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
