@@ -7,6 +7,7 @@
 #include <limits>
 #include "sql_src/sqlite3.h"
 #include "headders_src/extern.h"
+#include "headders_src/str_book.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -628,10 +629,25 @@ void book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
         {
             // Цикл перебирает все колонки в текущей строке результата.
             // sqlite3_column_count возвращает количество колонок.
+            // так же выполняем приобразование типов
             for (int i = 0; i < sqlite3_column_count(stmt_book_info); i++)
             {
-                std::cout << sqlite3_column_name(stmt_book_info, i) << ": "
-                << reinterpret_cast<const char*>(sqlite3_column_text(stmt_book_info, i)) << std::endl;
+                std::cout << sqlite3_column_name(stmt_book_info, i) << ": ";
+                // смотрим тип
+                switch (sqlite3_column_type(stmt_book_info, i))
+                {
+                case SQLITE_INTEGER: // если эта графа типа int
+                    std::cout << sqlite3_column_int(stmt_book_info, i) << std::endl;
+                    break;
+
+                case SQLITE_TEXT: // если эта графа типа text
+                    std::cout << sqlite3_column_text(stmt_book_info, i) << std::endl;
+                    break;
+
+                default:
+                    std::cout << "error!!!\n";
+                    break;
+                }
             }
         }
     }
@@ -669,11 +685,11 @@ void find_change_info_book(sqlite3 *db)
 
     pair_table_book = find_book(db, vector_tables, book_title); // выполняем функцию и заносим в переменную результат выполнения
 
-    book_info(db, pair_table_book);
+    book_info(db, pair_table_book); // функция вывода информации о книге
 
     /* тепрь даем пользователю выбрать действие над книгой */
-    // 1 - вывести всю информацию
-    // 2 - редактировать информацию
+    // 1 - просто вывести всю информацию
+    // 2 - вывести и редактировать редактировать информацию
     // 3 - удалить книгу
     // 4 - вернуться в главное меню
     int choice; // переменная для выбора действия
