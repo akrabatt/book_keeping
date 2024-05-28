@@ -746,14 +746,23 @@ void find_change_info_book(sqlite3 *db)
 
     /* выводим пользвателю предложение на ввод выбора действия над книгой */
     std::cout << "1 - modify book's info\n2 - delete book\n3 - got to main menu\n...:"; // сам текст
-    while (std::cin.fail() || choice < 1 || choice > 3)
+    while (true)
     {
-        std::cin.clear();                                                      // очистка флагов ошибок
-        std::cin.ignore(std::numeric_limits<std::size_t>::max(), '\n');        // очистка буфера
-        std::cout << "Invalid input: Please enter a number between 1 and 3: "; // предлогаем еще разы
+        std::cout << "...: ";
         std::cin >> choice;
+
+        if (std::cin.fail() || choice < 1 || choice > 3)
+        {
+            std::cin.clear();                                                   // Очистка флагов ошибок
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очистка буфера ввода
+            std::cout << "Invalid input: Please enter a number between 1 and 3.\n";
+        }
+        else
+        {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очистка остатка потока
+            break;                                                              // Выход из цикла, если ввод корректный
+        }
     }
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // очистка остатков потока
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
