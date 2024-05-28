@@ -608,8 +608,9 @@ std::pair<std::string, std::string> find_book(sqlite3 *db, std::vector<std::stri
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* документациооный комментарий */
-void book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
+BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
 {
+    BOOK book_struct;
     /* данная фукнция служит для вывода информации о книге */
     // создаем текст для запроса
     std::string sql_book_info = "SELECT * FROM " + table_book.first + " WHERE title = '" + table_book.second + "';"; // создаем указатель на запрос
@@ -637,10 +638,49 @@ void book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
                 switch (sqlite3_column_type(stmt_book_info, i))
                 {
                 case SQLITE_INTEGER: // если эта графа типа int
+
+                    /* заносим в структуру данные */
+                    switch (i)
+                    {
+                    case 0: // заносим id
+
+                        book_struct.id.first = sqlite3_column_name(stmt_book_info, i); // заносим название колонки
+                        book_struct.id.second = sqlite3_column_int(stmt_book_info, i); // заносим значение
+                        break;;
+                    case 3: // заносим год
+
+                        book_struct.year.first = sqlite3_column_name(stmt_book_info, i); // заносим название колонки
+                        book_struct.year.second = sqlite3_column_int(stmt_book_info, i); // заносим значение
+                        break;;
+                    default: // выводим ошибку по дефолту
+                        std::cout << "ERROR in switch case" << std::endl;
+                        break;
+                    }
+
                     std::cout << sqlite3_column_int(stmt_book_info, i) << std::endl;
                     break;
 
                 case SQLITE_TEXT: // если эта графа типа text
+
+                    switch (i)
+                    {
+                    case 1: // заносим данные об названии книги
+                        book_struct.title.first = sqlite3_column_name(stmt_book_info, i);
+                        book_struct.title.second = reinterpret_cast<const char *>(sqlite3_column_text(stmt_book_info, i));
+                        break;;
+                    case 2: // заносим данные об авторе книги
+                        book_struct.author.first = sqlite3_column_name(stmt_book_info, i);
+                        book_struct.author.second = reinterpret_cast<const char *>(sqlite3_column_text(stmt_book_info, i));
+                        break;;
+                    case 4: // заносим данные о жанре книги
+                        book_struct.genre.first = sqlite3_column_name(stmt_book_info, i);
+                        book_struct.genre.second = reinterpret_cast<const char *>(sqlite3_column_text(stmt_book_info, i));
+                        break;;
+                    default:
+                        std::cout << "ERROR in switch case" << std::endl;
+                        break;
+                    }
+
                     std::cout << sqlite3_column_text(stmt_book_info, i) << std::endl;
                     break;
 
@@ -650,6 +690,7 @@ void book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
                 }
             }
         }
+        sqlite3_finalize(stmt_book_info);
     }
     // если запрос выдает ошибку то выкидываем обратно в меню
     else
@@ -667,6 +708,7 @@ void book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
 /* документационный комментарий */
 void find_change_info_book(sqlite3 *db)
 {
+    BOOK book_main_struct; // создаем структуру о книги
     /* создадим переменную в которой будет храниться результат выполнения функции по
     получению списка таблиц */
     std::vector<std::string> vector_tables; // переменаая хранения наименований таблиц
@@ -685,7 +727,7 @@ void find_change_info_book(sqlite3 *db)
 
     pair_table_book = find_book(db, vector_tables, book_title); // выполняем функцию и заносим в переменную результат выполнения
 
-    book_info(db, pair_table_book); // функция вывода информации о книге
+    book_main_struct = book_info(db, pair_table_book); // функция вывода информации о книге
 
     /* тепрь даем пользователю выбрать действие над книгой */
     // 1 - просто вывести всю информацию
