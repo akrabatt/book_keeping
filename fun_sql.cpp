@@ -626,6 +626,7 @@ BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
         // пока есть строки результата выполняем запрос
         // Функция sqlite3_step выполняет подготовленный запрос и возвращает по одной строке результата
         // за раз. Если возвращается SQLITE_ROW, значит есть строка для обработки.
+        std::cout << "=============================================================" << std::endl;
         while (sqlite3_step(stmt_book_info) == SQLITE_ROW)
         {
             // Цикл перебирает все колонки в текущей строке результата.
@@ -634,7 +635,7 @@ BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
             for (int i = 0; i < sqlite3_column_count(stmt_book_info); i++)
             {
                 std::cout << sqlite3_column_name(stmt_book_info, i) << ": ";
-                // смотрим тип
+                // смотрим тип значения в таблице sql
                 switch (sqlite3_column_type(stmt_book_info, i))
                 {
                 case SQLITE_INTEGER: // если эта графа типа int
@@ -658,7 +659,7 @@ BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
                         std::cout << "ERROR in switch case" << std::endl;
                         break;
                     }
-
+                    // выводим численное значение
                     std::cout << sqlite3_column_int(stmt_book_info, i) << std::endl;
                     break;
 
@@ -685,7 +686,7 @@ BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
                         std::cout << "ERROR in switch case" << std::endl;
                         break;
                     }
-
+                    // выводим текст
                     std::cout << sqlite3_column_text(stmt_book_info, i) << std::endl;
                     break;
 
@@ -695,7 +696,8 @@ BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
                 }
             }
         }
-        sqlite3_finalize(stmt_book_info);
+        sqlite3_finalize(stmt_book_info); // высвобождаем память
+        std::cout << "=============================================================" << std::endl;
     }
     // если запрос выдает ошибку то выкидываем обратно в меню
     else
@@ -737,11 +739,21 @@ void find_change_info_book(sqlite3 *db)
     book_main_struct = book_info(db, pair_table_book); // функция вывода информации о книге
 
     /* тепрь даем пользователю выбрать действие над книгой */
-    // 1 - просто вывести всю информацию
-    // 2 - вывести и редактировать редактировать информацию
-    // 3 - удалить книгу
-    // 4 - вернуться в главное меню
-    // int choice; // переменная для выбора действия
+    // 1 - редактировать информацию о книге
+    // 2 - удалить книгу
+    // 3 - вернуться в главное меню
+    int choice; // переменная для выбора действия
+
+    /* выводим пользвателю предложение на ввод выбора действия над книгой */
+    std::cout << "1 - modify book's info\n2 - delete book\n3 - got to main menu\n...:"; // сам текст
+    while (std::cin.fail() || choice < 1 || choice > 3)
+    {
+        std::cin.clear();                                                      // очистка флагов ошибок
+        std::cin.ignore(std::numeric_limits<std::size_t>::max(), '\n');        // очистка буфера
+        std::cout << "Invalid input: Please enter a number between 1 and 3: "; // предлогаем еще разы
+        std::cin >> choice;
+    }
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // очистка остатков потока
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

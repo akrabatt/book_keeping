@@ -3,7 +3,7 @@
 #include <string>
 #include <utility>
 
-typedef struct BOOK
+struct BOOK
 {
     std::pair<std::string, int> id;             // id пременная для идентификатора книги
     std::pair<std::string, std::string> title;  // пременная для названия книги
