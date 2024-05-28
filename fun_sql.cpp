@@ -646,12 +646,14 @@ BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
 
                         book_struct.id.first = sqlite3_column_name(stmt_book_info, i); // заносим название колонки
                         book_struct.id.second = sqlite3_column_int(stmt_book_info, i); // заносим значение
-                        break;;
+                        break;
+                        ;
                     case 3: // заносим год
 
                         book_struct.year.first = sqlite3_column_name(stmt_book_info, i); // заносим название колонки
                         book_struct.year.second = sqlite3_column_int(stmt_book_info, i); // заносим значение
-                        break;;
+                        break;
+                        ;
                     default: // выводим ошибку по дефолту
                         std::cout << "ERROR in switch case" << std::endl;
                         break;
@@ -667,15 +669,18 @@ BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
                     case 1: // заносим данные об названии книги
                         book_struct.title.first = sqlite3_column_name(stmt_book_info, i);
                         book_struct.title.second = reinterpret_cast<const char *>(sqlite3_column_text(stmt_book_info, i));
-                        break;;
+                        break;
+                        ;
                     case 2: // заносим данные об авторе книги
                         book_struct.author.first = sqlite3_column_name(stmt_book_info, i);
                         book_struct.author.second = reinterpret_cast<const char *>(sqlite3_column_text(stmt_book_info, i));
-                        break;;
+                        break;
+                        ;
                     case 4: // заносим данные о жанре книги
                         book_struct.genre.first = sqlite3_column_name(stmt_book_info, i);
                         book_struct.genre.second = reinterpret_cast<const char *>(sqlite3_column_text(stmt_book_info, i));
-                        break;;
+                        break;
+                        ;
                     default:
                         std::cout << "ERROR in switch case" << std::endl;
                         break;
@@ -699,6 +704,8 @@ BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
         menu_ch = menu();                                                                     // выходим в меню обратно
         jump_to_choice(menu_ch, db, chosen_table);                                            // переходим к выбору
     }
+
+    return book_struct; // возвращаем структуру с данными о книге
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -734,7 +741,7 @@ void find_change_info_book(sqlite3 *db)
     // 2 - вывести и редактировать редактировать информацию
     // 3 - удалить книгу
     // 4 - вернуться в главное меню
-    int choice; // переменная для выбора действия
+    // int choice; // переменная для выбора действия
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
