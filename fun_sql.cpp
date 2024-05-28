@@ -631,7 +631,7 @@ void book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
             for (int i = 0; i < sqlite3_column_count(stmt_book_info); i++)
             {
                 std::cout << sqlite3_column_name(stmt_book_info, i) << ": "
-                << reinterpret_cast<const char*>(sqlite3_column_name(stmt_book_info, i)) << std::endl;
+                << reinterpret_cast<const char*>(sqlite3_column_text(stmt_book_info, i)) << std::endl;
             }
         }
     }
@@ -668,6 +668,8 @@ void find_change_info_book(sqlite3 *db)
     std::pair<std::string, std::string> pair_table_book; // пара таблица:книга
 
     pair_table_book = find_book(db, vector_tables, book_title); // выполняем функцию и заносим в переменную результат выполнения
+
+    book_info(db, pair_table_book);
 
     /* тепрь даем пользователю выбрать действие над книгой */
     // 1 - вывести всю информацию
