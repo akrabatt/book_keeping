@@ -809,7 +809,7 @@ void find_change_info_book(sqlite3 *db)
     int choice; // переменная для выбора действия
 
     /* выводим пользвателю предложение на ввод выбора действия над книгой */
-    std::cout << "1 - modify book's info\n2 - delete book\n3 - got to main menu\n...:"; // сам текст
+    std::cout << "1 - modify book's info\n2 - delete book\n3 - got to main menu\n...: "; // сам текст
     while (true)
     {
         std::cin >> choice;
@@ -851,7 +851,8 @@ void find_change_info_book(sqlite3 *db)
                 switch (ch) // обработчик выбора действия
                 {
                 case 1: // удалить
-                    del_book(db, &book_main_struct);
+
+                    del_book(db, &book_main_struct); // функция удаления
                     break;
 
                 case 2: // отменить
@@ -871,6 +872,9 @@ void find_change_info_book(sqlite3 *db)
         break;
 
     default:
+        menu_ch = menu();                          // выходим в меню обратно
+        jump_to_choice(menu_ch, db, chosen_table); // переходим к выбору
+
         break;
     }
 }
