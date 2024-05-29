@@ -5,6 +5,7 @@
 
 struct BOOK
 {
+    std::pair<std::string, std::string> table;  // таблица где распологается книга
     std::pair<std::string, int> id;             // id пременная для идентификатора книги
     std::pair<std::string, std::string> title;  // пременная для названия книги
     std::pair<std::string, std::string> author; // пременная для автора книги
