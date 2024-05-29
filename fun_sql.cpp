@@ -728,7 +728,30 @@ BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
 void del_book(sqlite3 *db, BOOK *book_info)
 {
     // создаем текс запроса
-    std::string sql_del_book = "DELETE FROM " + book_info -> table.second + " WHERE title = '" + book_info -> title.second + "';";
+    std::string sql_del_book = "DELETE FROM " + book_info->table.second + " WHERE title = '" + book_info->title.second + "';";
+
+    // создаем указатель на объект выражения
+    sqlite3_stmt *stmt_del_book; // указатель на объект
+
+    // подготавливаем запрос
+    if (sqlite3_prepare_v2(db, sql_del_book.c_str(), -1, &stmt_del_book, nullptr) == SQLITE_OK)
+    {
+        // выполняем запрос
+        if (sqlite3_step(stmt_del_book) == SQLITE_DONE)
+        {
+            std::cout << "The book was successfully deleted" << std::endl;
+        }
+        else
+        {
+            std::cout << "The book could not be deleted" << std::endl;
+        }
+    }
+    else // если все плохо
+    {
+        std::cerr << "SQL error in preparing statement: " << sqlite3_errmsg(db) << std::endl; // Выводим сообщение об ошибке подготовки запроса
+        menu_ch = menu();                                                                     // выходим в меню обратно
+        jump_to_choice(menu_ch, db, chosen_table);                                            // переходим к выбору
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -790,6 +813,7 @@ void find_change_info_book(sqlite3 *db)
         break;
 
     case 2: // удалить книгу
+        del_book(db, &book_main_struct);
         break;
 
     case 3: // вернуться в меню
