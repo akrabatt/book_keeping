@@ -724,7 +724,27 @@ BOOK book_info(sqlite3 *db, std::pair<std::string, std::string> table_book)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/**
+ * @brief Удаляет книгу из базы данных по указанным параметрам.
+ *
+ * Эта функция принимает указатель на базу данных SQLite и структуру, содержащую информацию о книге,
+ * и удаляет запись о книге из таблицы базы данных.
+ *
+ * @param db Указатель на объект базы данных SQLite.
+ * @param book_info Указатель на структуру BOOK, содержащую информацию о книге (таблица и название).
+ *
+ * Пример использования:
+ * @code
+ * BOOK book_info;
+ * book_info.table.second = "books";
+ * book_info.title.second = "Some Book Title";
+ * del_book(db, &book_info);
+ * @endcode
+ *
+ * В случае успешного удаления выводится сообщение "The book was successfully deleted".
+ * В случае ошибки удаления выводится сообщение "The book could not be deleted".
+ * В случае ошибки подготовки запроса выводится сообщение об ошибке и возвращается в главное меню.
+ */
 void del_book(sqlite3 *db, BOOK *book_info)
 {
     // создаем текс запроса
@@ -734,14 +754,14 @@ void del_book(sqlite3 *db, BOOK *book_info)
     sqlite3_stmt *stmt_del_book; // указатель на объект
 
     // подготавливаем запрос
-    if (sqlite3_prepare_v2(db, sql_del_book.c_str(), -1, &stmt_del_book, nullptr) == SQLITE_OK)
+    if (sqlite3_prepare_v2(db, sql_del_book.c_str(), -1, &stmt_del_book, nullptr) == SQLITE_OK) // если запрос подготовлен успешно
     {
         // выполняем запрос
-        if (sqlite3_step(stmt_del_book) == SQLITE_DONE)
+        if (sqlite3_step(stmt_del_book) == SQLITE_DONE) // если книга удалена
         {
             std::cout << "The book was successfully deleted" << std::endl;
         }
-        else
+        else // если книга не удалена
         {
             std::cout << "The book could not be deleted" << std::endl;
         }
@@ -752,6 +772,7 @@ void del_book(sqlite3 *db, BOOK *book_info)
         menu_ch = menu();                                                                     // выходим в меню обратно
         jump_to_choice(menu_ch, db, chosen_table);                                            // переходим к выбору
     }
+    sqlite3_finalize(stmt_del_book);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -791,14 +812,13 @@ void find_change_info_book(sqlite3 *db)
     std::cout << "1 - modify book's info\n2 - delete book\n3 - got to main menu\n...:"; // сам текст
     while (true)
     {
-        std::cout << "...: ";
         std::cin >> choice;
 
         if (std::cin.fail() || choice < 1 || choice > 3)
         {
             std::cin.clear();                                                   // Очистка флагов ошибок
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очистка буфера ввода
-            std::cout << "Invalid input: Please enter a number between 1 and 3.\n...:";
+            std::cout << "Invalid input: Please enter a number between 1 and 3.\n...: ";
         }
         else
         {
@@ -813,10 +833,41 @@ void find_change_info_book(sqlite3 *db)
         break;
 
     case 2: // удалить книгу
-        del_book(db, &book_main_struct);
+        std::cout << "are you sure?\n1 - yes\n2 - no\n...: " << std::endl;
+        int ch; // переменная выбора
+
+        // проверка на адекватность введенного значения
+        while (true)
+        {
+            std::cin >> ch;                          // вводим
+            if (std::cin.fail() || ch < 1 || ch > 2) // условие
+            {
+                std::cin.clear();                                                   // Очистка флагов ошибок
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очистка буфера ввода
+                std::cout << "Invalid input: Please enter a number between 1 and 2.\n...: ";
+            }
+            else
+            {
+                switch (ch) // обработчик выбора действия
+                {
+                case 1: // удалить
+                    del_book(db, &book_main_struct);
+                    break;
+
+                case 2: // отменить
+
+                    menu_ch = menu();                          // выходим в меню обратно
+                    jump_to_choice(menu_ch, db, chosen_table); // переходим к выбору
+                    break;
+                }
+            }
+        }
         break;
 
     case 3: // вернуться в меню
+
+        menu_ch = menu();                          // выходим в меню обратно
+        jump_to_choice(menu_ch, db, chosen_table); // переходим к выбору
         break;
 
     default:
