@@ -784,12 +784,15 @@ void red_info_book(sqlite3 *db, BOOK *book_info)
 
     // создадим текст запроса
     // std::string sql_red_info = "UPDATE ? SET ? = ? WHERE ? = ?";
-    
+
     // создадим указатель на объект запроса
     sqlite3_stmt *stmt_red_info;
 
     // переменная для нового значения
-    std::string new_value;
+    std::string new_value_str; // числового
+    int new_value_int;         // буквенного
+
+    std::string sql_red_info; // переменная для текста запроса
 
     std::cout << "Which parameter do you want to change ?\n";
     std::cout << "1 - title\n2 - author\n3 - year\n4 - genre\n...: ";
@@ -813,23 +816,43 @@ void red_info_book(sqlite3 *db, BOOK *book_info)
         }
     }
 
-    std::string sql_red_info; // переменная для текста запроса
     // Дальнейшая обработка выбора пользователя выбирается текст запроса
     switch (ch)
     {
     case 1: // изменить название книги
         std::cout << "input new title value: ";
-        std::cin
-        sql_red_info = "UPDATE " + book_info->table.second + " SET title = '" + new_value + "' WHERE id = " + std::to_string(book_info -> id.second) + ";";
+        std::cin >> new_value_str;
+        sql_red_info = "UPDATE " + book_info->table.second + " SET title = '" + new_value_str + "' WHERE id = " + std::to_string(book_info->id.second) + ";";
         break;
     case 2: // изменить автора книги
-        // Код для изменения автора
+        std::cout << "input new author value: ";
+        std::cin >> new_value_str;
+        sql_red_info = "UPDATE " + book_info->table.second + " SET author = '" + new_value_str + "' WHERE id = " + std::to_string(book_info->id.second) + ";";
         break;
     case 3: // изменить год издания книги
-        // Код для изменения года
+        std::cout << "input new author value: ";
+        while (true)
+        {
+            std::cin >> new_value_int;
+            // проверка на то что это не строка
+            if (std::cin.fail())
+            {
+                std::cin.clear();                                                   // Очистка флагов ошибок
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очистка буфера ввода
+                std::cout << "Invalid input: Please enter a number, not string.\n...: ";
+            }
+            else
+            {
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очистка остатка потока
+                break;                                                              // Выход из цикла, если ввод корректный
+            }
+        }
+        sql_red_info = "UPDATE " + book_info->table.second + " SET author = '" + std::to_string(new_value_int) + "' WHERE id = " + std::to_string(book_info->id.second) + ";";
         break;
     case 4: // изменить жанр книги
-        // Код для изменения жанра
+        std::cout << "input new genre value: ";
+        std::cin >> new_value_str;
+        sql_red_info = "UPDATE " + book_info->table.second + " SET genre = '" + new_value_str + "' WHERE id = " + std::to_string(book_info->id.second) + ";";
         break;
     default:
         std::cout << "shomething wrong\n";
