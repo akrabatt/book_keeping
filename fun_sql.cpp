@@ -820,16 +820,21 @@ void red_info_book(sqlite3 *db, BOOK *book_info)
     switch (ch)
     {
     case 1: // изменить название книги
+
         std::cout << "input new title value: ";
         std::cin >> new_value_str;
         sql_red_info = "UPDATE " + book_info->table.second + " SET title = '" + new_value_str + "' WHERE id = " + std::to_string(book_info->id.second) + ";";
         break;
+
     case 2: // изменить автора книги
+
         std::cout << "input new author value: ";
         std::cin >> new_value_str;
         sql_red_info = "UPDATE " + book_info->table.second + " SET author = '" + new_value_str + "' WHERE id = " + std::to_string(book_info->id.second) + ";";
         break;
+
     case 3: // изменить год издания книги
+
         std::cout << "input new author value: ";
         while (true)
         {
@@ -849,17 +854,43 @@ void red_info_book(sqlite3 *db, BOOK *book_info)
         }
         sql_red_info = "UPDATE " + book_info->table.second + " SET author = '" + std::to_string(new_value_int) + "' WHERE id = " + std::to_string(book_info->id.second) + ";";
         break;
+
     case 4: // изменить жанр книги
+
         std::cout << "input new genre value: ";
         std::cin >> new_value_str;
         sql_red_info = "UPDATE " + book_info->table.second + " SET genre = '" + new_value_str + "' WHERE id = " + std::to_string(book_info->id.second) + ";";
         break;
+
     default:
+
         std::cout << "shomething wrong\n";
         menu_ch = menu();                          // выходим в меню обратно
         jump_to_choice(menu_ch, db, chosen_table); // переходим к выбору
 
         break;
+    }
+
+    // подготавливаем запрос
+    if (sqlite3_prepare_v2(db, sql_red_info.c_str(), -1, &stmt_red_info, nullptr) == SQLITE_OK)
+    {
+        // выполняем шаг
+        if (sqlite3_step(stmt_red_info) == SQLITE_DONE)
+        {
+            std::cout << "The information was successfullu updated\n";
+        }
+        else
+        {
+            std::cerr << "Failed to update the information: " << sqlite3_errmsg(db) << std::endl;
+            menu_ch = menu(); // выходим в меню обратно
+            jump_to_choice(menu_ch, db, chosen_table);
+        }
+    }
+    else
+    {
+        std::cerr << "SQL error in preparing statement: " << sqlite3_errmsg(db) << std::endl; // Выводим сообщение об ошибке подготовки запроса
+        menu_ch = menu();                                                                     // выходим в меню обратно
+        jump_to_choice(menu_ch, db, chosen_table);
     }
 }
 
@@ -918,6 +949,7 @@ void find_change_info_book(sqlite3 *db)
     switch (choice)
     {
     case 1: // редактировать информацию
+        red_info_book(db, &book_main_struct);
         break;
 
     case 2: // удалить книгу
