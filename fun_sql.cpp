@@ -781,7 +781,15 @@ void del_book(sqlite3 *db, BOOK *book_info)
 /* документационный комментарий */
 void red_info_book(sqlite3 *db, BOOK *book_info)
 {
-    // создадим указатель для 
+
+    // создадим текст запроса
+    // std::string sql_red_info = "UPDATE ? SET ? = ? WHERE ? = ?";
+    
+    // создадим указатель на объект запроса
+    sqlite3_stmt *stmt_red_info;
+
+    // переменная для нового значения
+    std::string new_value;
 
     std::cout << "Which parameter do you want to change ?\n";
     std::cout << "1 - title\n2 - author\n3 - year\n4 - genre\n...: ";
@@ -805,11 +813,14 @@ void red_info_book(sqlite3 *db, BOOK *book_info)
         }
     }
 
-    // Дальнейшая обработка выбора пользователя...
+    std::string sql_red_info; // переменная для текста запроса
+    // Дальнейшая обработка выбора пользователя выбирается текст запроса
     switch (ch)
     {
     case 1: // изменить название книги
-        // Код для изменения заголовка
+        std::cout << "input new title value: ";
+        std::cin
+        sql_red_info = "UPDATE " + book_info->table.second + " SET title = '" + new_value + "' WHERE id = " + std::to_string(book_info -> id.second) + ";";
         break;
     case 2: // изменить автора книги
         // Код для изменения автора
